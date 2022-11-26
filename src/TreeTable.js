@@ -123,7 +123,7 @@ export const TreeTable = () => {
         },
       },
     ],
-    [tableData, setTableData, expandedRowKeys, setExpandedRowKeys, , setNewRowKey, setSelectedRowKeys]
+    [tableData, setTableData, expandedRowKeys, setExpandedRowKeys, setNewRowKey, setSelectedRowKeys]
   );
 
   return (
@@ -161,6 +161,7 @@ export const TreeTable = () => {
           onExpandedRowsChange: (expandedRows) => {
             setExpandedRowKeys(expandedRows);
             setSelectedRowKeys([]);
+            setNewRowKey();
           },
         }}
         scroll={{ y: 500 }}
