@@ -45,18 +45,18 @@ const FlippedEnterIcon = styled(EnterOutlined)`
 export const TreeTable = () => {
   const [tableData, setTableData] = useState(createTableData(10));
   const [expandedRowKeys, setExpandedRowKeys] = useState([]);
-  const [newRowName, setNewRowName] = useState();
+  const [newRowKey, setNewRowKey] = useState();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableNodeCount, setTableNodeCount] = useState(0);
 
   useEffect(() => {
-    if (newRowName) {
+    if (newRowKey) {
       const newRowElement = document.querySelector(
-        `[data-row-key='${newRowName}']`
+        `[data-row-key='${newRowKey}']`
       );
       newRowElement.scrollIntoView(false);
     }
-  }, [newRowName]);
+  }, [newRowKey]);
 
   useEffect(() => setTableNodeCount(getTableRowCount(tableData)), [tableData]);
 
@@ -90,7 +90,7 @@ export const TreeTable = () => {
               record.children = [...record.children, newRow];
               setTableData([...tableData]);
               setExpandedRowKeys(new Set([...expandedRowKeys, record.key]));
-              setNewRowName(newRow.name);
+              setNewRowKey(newRow.key);
               setSelectedRowKeys([newRow.key]);
             },
           };
@@ -116,14 +116,14 @@ export const TreeTable = () => {
               setTableData([...tableData]);
               expandedRowKeySet.delete(record.key);
               setExpandedRowKeys(expandedRowKeySet);
-              setNewRowName();
+              setNewRowKey();
               setSelectedRowKeys([]);
             },
           };
         },
       },
     ],
-    [tableData, setTableData, expandedRowKeys, setExpandedRowKeys]
+    [tableData, setTableData, expandedRowKeys, setExpandedRowKeys, , setNewRowKey, setSelectedRowKeys]
   );
 
   return (
@@ -137,7 +137,7 @@ export const TreeTable = () => {
               onClick={() => {
                 setExpandedRowKeys(getAllParentNodeKeys(tableData));
                 setSelectedRowKeys([]);
-                setNewRowName();
+                setNewRowKey();
               }}
             >
               Open All
@@ -146,7 +146,7 @@ export const TreeTable = () => {
               onClick={() => {
                 setExpandedRowKeys([]);
                 setSelectedRowKeys([]);
-                setNewRowName();
+                setNewRowKey();
               }}
             >
               Collapse All
